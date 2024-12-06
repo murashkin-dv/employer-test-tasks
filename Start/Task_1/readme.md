@@ -15,5 +15,5 @@ python3 main.py produce --message 'Hello World!' --topic 'hello_topic'
    Apache Kafka 
 
 Pure commands:
-python3 main.py --mode "produce" --message "Hello World!" --topic "hello_topic" --kafka "0.0.0.0:9092"
-python3 main.py --mode "consume" --topic "hello_topic" --kafka "0.0.0.0:9092"
+* python3 main.py --mode "produce" --message "Hello World!" --topic "hello_topic" --kafka "0.0.0.0:9092"
+* python3 main.py --mode "consume" --topic "hello_topic" --kafka "0.0.0.0:9092"
