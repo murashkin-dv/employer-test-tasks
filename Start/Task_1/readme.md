@@ -25,9 +25,10 @@ ___________________________________________________________________________
 5. Запустить скрипт в режиме Consume:
    * python3 main.py --mode "consume" --topic "hello_topic" --kafka "localhost:29092"
 6. Открыть новый терминал и переместиться в директорию Task_1/main
+7. Запустить скрипт в режиме Produce:
    * python3 main.py --mode "produce" --message "Hello World!" --topic "hello_topic" --kafka "localhost:29092"
-7. Перейти обратно в терминал Consume и убедиться, что сообщения отображаются
-8. Если необходимо отравлять/принимать сообщения непосредственно из контейнера "client" в docker,
+8. Перейти обратно в терминал Consume и убедиться, что сообщения отображаются
+9. Если необходимо отравлять/принимать сообщения непосредственно из контейнера "client" в docker,
 то параметр --kafka необходимо заменить на "broker:9092":
    * python3 main.py --mode "consume" --topic "hello_topic" --kafka "broker:9092"
    * python3 main.py --mode "produce" --message "Hello World!" --topic "hello_topic" --kafka "broker:9092" 
