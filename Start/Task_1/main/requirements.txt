@@ -1,0 +1,2 @@
+confluent-kafka==2.6.1
+kafka-python-ng==2.2.3
