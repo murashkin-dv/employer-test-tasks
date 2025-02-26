@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <title>Панель Управления</title>
+</head>
+<body>
+
+<h1>
+    Список всех активных чатов, групповых чатов и каналов <br>
+    пользователя {{ user_me }}
+</h1>
+
+<div>
+    <ol>
+        <li>
+            <h2>Общий список публичных чатов и каналов:</h2>
+            <h4>(сортировка по количеству непрочитанных сообщений (1) и
+                количеству участников (2)):
+            </h4>
+            <ul>
+                {% for resource in all_resources %}
+                    <li>
+                        {% if resource.type == "public chat" %}
+                            {% with username=resource.title.0,
+                            name=resource.title.1 %}
+                                <a href="/last-messages/{{ username }}/">
+                                    {{ name }}
+                                </a>
+                            {% endwith %}
+                        {% else %}
+                            <a href="/last-messages/{{ resource.title }}/">
+                                {{ resource.title }}
+                            </a>
+                        {% endif %}
+
+                        (количество новых сообщений:
+                        {{ resource.unread_count }} /
+                        количество участников:
+                        {{ resource.participants_count }}))
+                    </li>
+                {% endfor %}
+            </ul>
+        </li>
+        <li>
+            <h2>Чаты (включая личные):</h2>
+            <ul>
+                {% for chat in chats %}
+                    <li><a href="/last-messages/{{ chat.entity.username }}/">
+                        {{ chat.name }} (@{{ chat.entity.username }})</a></li>
+                {% endfor %}
+            </ul>
+        </li>
+        <li>
+            <h2>Групповые чаты (publiс only):</h2>
+            <ul>
+                {% for group_chat in group_chats %}
+                    <li><a href="/last-messages/{{ group_chat }}/">
+                        {{ group_chat }}</a></li>
+                {% endfor %}
+            </ul>
+        </li>
+        <li>
+            <h2>Kаналы:</h2>
+            <ul>
+                {% for channel in channels %}
+                    <li>
+                        <a href="/last-messages/{{ channel }}">{{ channel }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </li>
+        <li>
+            <h2>Фильтры (Папки):</h2>
+            <ul>
+                {% for group in groups %}
+                    <li>
+                        <h3>{{ group.filter_name }}</h3>
+                        <ul>
+                            {% for channel in group.channels %}
+                                <li>
+                                    <a href="/last-messages/{{ channel }}">{{ channel }}</a>
+                                </li>
+                            {% endfor %}
+                            {% for chat in group.chats %}
+                                <li>
+                                    {% with username=chat.0, name=chat.1 %}
+                                        <a href="/last-messages/{{ username }}">
+                                            {{ name }}
+                                        </a>
+                                    {% endwith %}
+                                </li>
+                            {% endfor %}
+                            {% for group_chat in group.group_chats %}
+                                <li>
+                                    <a href="/last-messages/{{ group_chat }}">
+                                        {{ group_chat }} </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% endfor %}
+            </ul>
+        </li>
+    </ol>
+</div>
+<br>
+<a href="/logout">Выйти</a>
+</body>
+</html>

@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+    <style>
+        .subscribe-container {
+            margin-top: 20px;
+        }
+
+        .subscribe-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-left: 0;
+            padding-left: 0;
+        }
+
+        .subscribe-row form {
+            margin-left: 20px;
+        }
+    </style>
+
+    <h2>Последние сообщения из канала @{{ channel }}</h2>
+    <div class="subscribe-container">
+        <div class="subscribe-row">
+            <h3>Подписка на ежедневные сообщения канала:</h3>
+
+                <!-- Кнопка отправки запроса для подписки на канал -->
+                <form action="/subscribe/{{ channel }}" method="post">
+                    <button type="submit">Подписаться/Отписаться
+                    </button>
+                </form>
+        </div>
+    </div>
+    <h3>Количество непрочитанных сообщений: {{ unread_count }}</h3>
+    <h3>Загружено сообщений всего: {{ total_count }}</h3>
+
+
+    <div>
+        <h3>Что нового произошло в этих сообщениях? А вот что:</h3>
+        {{ summary }}
+    </div>
+
+    <div>
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li>
+                        <strong>{{ message.label }} {{ message.date }}:</strong> {{ message.text }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Нет сообщений для отображения.</p>
+        {% endif %}
+    </div>
+    <p><a href="/dashboard">Назад к каналам</a></p>
+{% endblock %}
